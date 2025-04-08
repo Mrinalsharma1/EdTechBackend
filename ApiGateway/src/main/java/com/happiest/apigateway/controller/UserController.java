@@ -166,7 +166,11 @@ public class UserController {
             return new ResponseEntity<>(responseBody, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @PostMapping("/logout")
+    public Integer findByUsername(Long userId){
+        System.out.println("Logout Initialized");
+        return refreshTokenService.deleteByUserId(userId);
+    }
 
 }
 

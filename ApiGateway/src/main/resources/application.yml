@@ -31,9 +31,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-  main:
-    web-application-type : reactive
-    allow-bean-definition-overriding: true
+#  main:
+#    web-application-type : reactive
+#    allow-bean-definition-overriding: true
 
 server:
   port: 8071
