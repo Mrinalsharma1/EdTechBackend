@@ -1,8 +1,11 @@
 package com.happiest.apigateway.controller;
 
-import com.happiest.apigateway.apigateway.UserServiceInterface;
 import com.happiest.apigateway.model.AuthResponse;
+import com.happiest.apigateway.model.RefreshToken;
+import com.happiest.apigateway.model.RefreshTokenRequest;
 import com.happiest.apigateway.model.Users;
+import com.happiest.apigateway.service.JWTService;
+import com.happiest.apigateway.service.RefreshTokenService;
 import com.happiest.apigateway.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -21,26 +25,18 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UserService service;
-
+    private UserService userService;
     @Autowired
-    UserServiceInterface userService;
-
+    private JWTService jwtService;
     @Autowired
-    UserServiceInterface userServiceInterface;
+    private RefreshTokenService refreshTokenService;
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
-    /**
-     *
-     * @param user is an object of type UserEntity
-     * @return
-     */
 
-    @Operation(summary="Register the user")
-
+   @Operation(summary="Register the user")
     @PostMapping("/register")
     public Users register(@RequestBody Users user) {
-//        user.setPassword(encoder.encode(user.getPassword()));
+        user.setPassword(encoder.encode(user.getPassword()));
         return userService.register(user);
 
     }
@@ -60,7 +56,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Users user) {
         try {
-            AuthResponse authResponse = service.verify(user);
+            AuthResponse authResponse = userService.verify(user);
 
             if (authResponse != null) {
                 Map<String, Object> responseBody = new HashMap<>();
@@ -77,6 +73,7 @@ public class UserController {
 
                 responseBody.put("userdata", userData); // Add userdata to the response
 
+                responseBody.put("refreshtoken",refreshTokenService.createRefreshToken(authResponse.getId()).getToken());
                 return new ResponseEntity<>(responseBody, HttpStatus.OK);
             } else {
                 Map<String, Object> responseBody = new HashMap<>();
@@ -111,7 +108,7 @@ public class UserController {
 //
 //    }
 
-    @GetMapping("/getallmessages")
+    /*@GetMapping("/getallmessages")
     public ResponseEntity<Map<String, Object>> getAllMessages(){
         return userServiceInterface.getAllMessages();
     }
@@ -139,6 +136,35 @@ public class UserController {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
+    }
+*/
+    @Operation(summary="Refresh User Token")
+    @PostMapping("/refreshtoken")
+    public ResponseEntity<?> refreshtoken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        try {
+            Optional<RefreshToken> refreshTokenResponse = refreshTokenService.findByToken(refreshTokenRequest.getRefreshToke());
+
+            if (refreshTokenResponse.isPresent()) {
+                RefreshToken refreshToken = refreshTokenService.verifyExpiration(refreshTokenResponse.get());
+                String token = jwtService.generateToken(refreshToken.getUser().getUsername());
+                Map<String, Object> responseBody = new HashMap<>();
+                responseBody.put("token", token);
+                responseBody.put("refreshtoken",refreshTokenRequest.getRefreshToke());
+                return new ResponseEntity<>(responseBody, HttpStatus.OK);
+            } else {
+                Map<String, Object> responseBody = new HashMap<>();
+                responseBody.put("message", "Invalid username or password");
+                responseBody.put("status", "fail");
+
+                return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            Map<String, Object> responseBody = new HashMap<>();
+            responseBody.put("message", "Internal Server Error");
+            responseBody.put("status", "error");
+
+            return new ResponseEntity<>(responseBody, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

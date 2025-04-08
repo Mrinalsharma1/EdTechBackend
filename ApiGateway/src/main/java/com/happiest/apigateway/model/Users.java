@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Users {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;   // Primary key, auto-generated
 
     @Column(nullable = false)

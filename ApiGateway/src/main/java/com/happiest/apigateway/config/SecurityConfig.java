@@ -37,14 +37,14 @@ public class SecurityConfig {
     private JWTFilter jwtFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+        System.out.println("Login Call");
         return http
                 .cors(Customizer.withDefaults())  // Enable CORS
-                .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF
+                .csrf(csrf->csrf.disable())  // Disable CSRF
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("register", "login")
+                        .requestMatchers("register", "login","check","h2-console","refreshtoken")
                         .permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().authenticated()).headers(head->head.frameOptions(frame->frame.sameOrigin()))
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Stateless session
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)  // Add JWT filter
@@ -68,7 +68,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-// Allow requests from this origin
+        // Allow requests from this origin
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")); // Allow HTTP methods
         configuration.setAllowedHeaders(Arrays.asList("*")); // Allow all headers
         configuration.setAllowCredentials(true); // Allow credentials
