@@ -1,6 +1,5 @@
 package com.happiest.apigateway.apigateway.bookingservice.repository;
 
-
 import com.happiest.apigateway.apigateway.bookingservice.model.Product;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.jpa.repository.JpaRepository;
