@@ -9,10 +9,12 @@ import com.happiest.apigateway.service.RefreshTokenService;
 import com.happiest.apigateway.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -33,9 +35,9 @@ public class UserController {
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
-   @Operation(summary="Register the user")
+    @Operation(summary="Register the user")
     @PostMapping("/register")
-    public Users register(@RequestBody Users user) {
+    public Users register(@Validated @RequestBody  Users user) {
         user.setPassword(encoder.encode(user.getPassword()));
         return userService.register(user);
 

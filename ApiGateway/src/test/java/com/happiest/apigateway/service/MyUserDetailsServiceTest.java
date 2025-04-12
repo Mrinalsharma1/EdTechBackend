@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.happiest.apigateway.model.UserPrincipal;
 import com.happiest.apigateway.model.Users;
-import com.happiest.apigateway.repository.UserRepo;
+import com.happiest.apigateway.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class MyUserDetailsServiceTest {
 
     @Mock
-    private UserRepo userRepo;
+    private UserRepository userRepo;
 
     @InjectMocks
     private MyUserDetailsService myUserDetailsService;

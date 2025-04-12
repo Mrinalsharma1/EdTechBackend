@@ -4,8 +4,9 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.happiest.apigateway.model.AuthResponse;
+import com.happiest.apigateway.model.Role;
 import com.happiest.apigateway.model.Users;
-import com.happiest.apigateway.repository.UserRepo;
+import com.happiest.apigateway.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,10 +17,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
+import java.util.Set;
+
 public class UserServiceTest {
 
     @Mock
-    private UserRepo userRepo;
+    private UserRepository userRepo;
 
     @Mock
     private JWTService jwtService;
@@ -41,7 +44,7 @@ public class UserServiceTest {
         user.setPassword("password");
         user.setId(1L);
         user.setProfilename("Test User");
-        user.setRole("USER");
+        user.setRoles(Set.of(Role.ADMIN));
 
         authentication = mock(Authentication.class);
     }
