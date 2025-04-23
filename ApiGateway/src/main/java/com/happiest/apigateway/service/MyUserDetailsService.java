@@ -2,7 +2,7 @@ package com.happiest.apigateway.service;
 
 import com.happiest.apigateway.model.UserPrincipal;
 import com.happiest.apigateway.model.Users;
-import com.happiest.apigateway.repository.UserRepo;
+import com.happiest.apigateway.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepo repo;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Users user = repo.findByUsername(username);
+        Users user = userRepository.findByUsername(username);
 
         if (user == null){
             System.out.println("User not found");

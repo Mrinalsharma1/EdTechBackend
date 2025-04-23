@@ -1,3 +1,4 @@
+/*
 package com.happiest.apigateway.service;
 
 import com.hazelcast.core.HazelcastInstance;
@@ -57,3 +58,4 @@ public class RateLimiter extends AbstractGatewayFilterFactory<RateLimiter.Config
         private int rateLimit;
     }
 }
+*/

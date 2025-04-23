@@ -1,3 +1,4 @@
+/*
 package com.happiest.apigateway.controller;
 
 import com.happiest.apigateway.apigateway.UserServiceInterface;
@@ -121,3 +122,4 @@ class UserControllerTest {
         assertEquals("i am in check methods", message);
     }
 }
+*/

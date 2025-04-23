@@ -3,7 +3,7 @@ package com.happiest.apigateway.service;
 import com.happiest.apigateway.exceptions.TokenRefreshException;
 import com.happiest.apigateway.model.RefreshToken;
 import com.happiest.apigateway.repository.RefreshTokenRepository;
-import com.happiest.apigateway.repository.UserRepo;
+import com.happiest.apigateway.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +22,7 @@ public class RefreshTokenService {
     private RefreshTokenRepository refreshTokenRepository;
 
     @Autowired
-    private UserRepo userRepository;
+    private UserRepository userRepository;
 
     public Optional<RefreshToken> findByToken(String token) {
         return refreshTokenRepository.findByToken(token);

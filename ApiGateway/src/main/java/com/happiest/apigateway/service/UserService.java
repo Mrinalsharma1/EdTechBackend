@@ -1,8 +1,9 @@
 package com.happiest.apigateway.service;
 
+import com.happiest.apigateway.exception.UserAlreadyPresentException;
 import com.happiest.apigateway.model.AuthResponse;
 import com.happiest.apigateway.model.Users;
-import com.happiest.apigateway.repository.UserRepo;
+import com.happiest.apigateway.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class UserService {
     @Autowired
-    private UserRepo repo;
+    private UserRepository userRepo;
 
     @Autowired
     private JWTService jwtService;
@@ -26,8 +30,11 @@ public class UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
 
     public Users register(Users user){
-        return repo.save(user);
-
+        boolean userExist = userRepo.existsByUsername(user.getUsername());
+        if(userExist){
+            throw new UserAlreadyPresentException(user.getUsername());
+        }
+        return userRepo.save(user);
     }
 
     public AuthResponse verify(Users user) {
@@ -42,7 +49,7 @@ public class UserService {
                 String token = jwtService.generateToken(user.getUsername());
 
                 // Fetch the complete user object after authentication
-                Users authenticatedUser = repo.findByUsername(user.getUsername());
+                Users authenticatedUser = userRepo.findByUsername(user.getUsername());
 
                 // Return the complete user data in AuthResponse
 
@@ -51,8 +58,9 @@ public class UserService {
                         authenticatedUser.getId(),
                         authenticatedUser.getUsername(),
                         authenticatedUser.getProfilename(),
-                        authenticatedUser.getRole()
-                );
+                        authenticatedUser.getRoles().stream()
+                                .map(Object::toString)
+                                .collect(Collectors.joining(", ")));
 
             }
 
