@@ -1,0 +1,32 @@
+# Java class files
+*.class
+
+# Maven build directory
+target/
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+*.orig
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# Environment / secret files
+.env
+application-*.yml
+application-*.properties
+
+# Spring Boot devtools
+.spring-boot-devtools.properties
+
+# Test output
+surefire-reports/
+
