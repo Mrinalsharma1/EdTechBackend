@@ -22,12 +22,6 @@ spring:
 #            - name: RateLimiter
 #              args:
 #                rateLimit: 10
-#  datasource:
-#    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
-#    driver-class-name: org.h2.Driver
-#    username: sa
-#    password: password
-
   datasource:
     url: jdbc:postgresql://database-2.c3au442sq16u.ap-south-1.rds.amazonaws.com:5432/postgres
     username: postgres
@@ -38,7 +32,6 @@ spring:
     hibernate:
       ddl-auto: update
     generate-ddl: true
-
 #  main:
 #    web-application-type : reactive
 #    allow-bean-definition-overriding: true
