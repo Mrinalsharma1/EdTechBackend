@@ -9,7 +9,7 @@
     <!-- Set as POM packaging -->
     <groupId>com.happiest</groupId>
     <artifactId>EdTechBackend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>3.2.4</version>
     <packaging>pom</packaging>
     <name>EdTechBackend</name>
     <description>Parent Project for EdTech Backend Microservices</description>
