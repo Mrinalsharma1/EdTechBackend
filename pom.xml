@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Set as POM packaging -->
+    <groupId>com.happiest</groupId>
+    <artifactId>EdTechBackend</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>EdTechBackend</name>
+    <description>Parent Project for EdTech Backend Microservices</description>
+
+    <!-- Parent dependency (Spring Boot Starter Parent) -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5-SNAPSHOT</version>
+        <relativePath/> <!-- Important: this remains blank -->
+    </parent>
+
+    <!-- List all microservices here -->
+    <modules>
+        <module>APIGateway</module>
+        <module>Course</module>
+        <module>DiscoveryServer</module>
+        <module>ConfigServer</module>
+        <!-- Add more modules as you create them -->
+    </modules>
+
+    <properties>
+        <!-- Common properties for all modules -->
+        <java.version>17</java.version> <!-- Or whatever your project is using -->
+    </properties>
+
+</project>
