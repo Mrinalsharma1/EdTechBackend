@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: Course
+
+  datasource:
+    url: jdbc:postgresql://database-2.c3au442sq16u.ap-south-1.rds.amazonaws.com:5432/postgres
+    username: postgres
+    password: postgres
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+
+server:
+  port: 8061
