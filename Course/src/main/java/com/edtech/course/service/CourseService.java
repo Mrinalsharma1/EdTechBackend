@@ -20,10 +20,10 @@ public class CourseService {
     private CourseMapper courseMapper;
 
     public CourseDTO addCourse(CourseDTO courseDTO) {
+
         Course course = courseMapper.toEntity(courseDTO);
-
-
         Course addedCourse = courseRepository.save(course);
+
 
         return courseMapper.toDto(addedCourse);
     }
