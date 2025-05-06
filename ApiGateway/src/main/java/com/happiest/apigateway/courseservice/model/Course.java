@@ -1,11 +1,9 @@
-package com.edtech.course.model;
+package com.happiest.apigateway.courseservice.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import jakarta.validation.constraints.NotNull;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 

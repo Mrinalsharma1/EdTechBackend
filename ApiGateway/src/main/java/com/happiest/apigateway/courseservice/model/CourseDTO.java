@@ -1,16 +1,10 @@
-package com.edtech.course.model;
+package com.happiest.apigateway.courseservice.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 import java.util.UUID;
-
-
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CourseDTO {
 

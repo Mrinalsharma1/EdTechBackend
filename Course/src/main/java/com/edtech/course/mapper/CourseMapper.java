@@ -22,7 +22,7 @@ public interface CourseMapper {
 
 //    @Mapping(source = "categoryId", target = "categoryId")
 //    @Mapping(source = "courseBanner", target = "courseBanner")
-//    @Mapping(source = "difficultyLevel", target = "difficultyLevel")
+    @Mapping(source = "difficultyLevel", target = "difficultyLevel")
 //    @Mapping(source = "teacherId", target = "teacherId")
 //    @Mapping(source = "enrollmentStatus", target = "enrollmentStatus")
     Course toEntity(CourseDTO courseDTO);
