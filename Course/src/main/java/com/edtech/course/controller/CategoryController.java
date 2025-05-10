@@ -16,6 +16,13 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * Endpoint to fetch all categories.
+     *
+     * @return ResponseEntity containing an ApiResponse with a list of CategoryDTO objects
+     *         and a success message.
+     */
+
     @GetMapping("/getAllCategories")
     public ResponseEntity<ApiResponse<List<CategoryDTO>>> getAllCategories() {
         List<CategoryDTO> data = categoryService.getAllCategories();
