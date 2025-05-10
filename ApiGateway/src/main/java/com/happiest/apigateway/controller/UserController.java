@@ -52,7 +52,6 @@ public class UserController {
 //        return userService.findByResetToken(token);
 //    }
 
-//hey i am checking conflict issue
 
     @Operation(summary="Login of user")
     @PostMapping("/login")
@@ -93,53 +92,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/check")
-    public String checkServiceCenter(){
-        return "i am in check methods";
-    }
 
-//
-//
-
-//
-//
-//
-//
-//
-//        }
-//
-//    }
-
-    /*@GetMapping("/getallmessages")
-    public ResponseEntity<Map<String, Object>> getAllMessages(){
-        return userServiceInterface.getAllMessages();
-    }
-
-    @GetMapping("/users/count")
-    public ResponseEntity<Map<String, Object>> countUsers(@RequestParam(defaultValue = "user") String role){
-        Map<String, Object> response = new HashMap<>();
-        try {
-            return userServiceInterface.countUsers(role);
-        } catch (Exception e) {
-            response.put("status", "fail");
-            response.put("message", "" + e.getMessage());
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @GetMapping("/managers/count")
-    public ResponseEntity<Map<String, Object>> countManagers(@RequestParam(defaultValue = "manager") String role){
-        Map<String, Object> response = new HashMap<>();
-        try {
-            return userServiceInterface.countManagers(role);
-        } catch (Exception e) {
-            response.put("status", "fail");
-            response.put("message", "" + e.getMessage());
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-
-    }
-*/
     @Operation(summary="Refresh User Token")
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshtoken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
