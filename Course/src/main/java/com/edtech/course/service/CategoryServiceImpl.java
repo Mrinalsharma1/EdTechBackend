@@ -2,9 +2,11 @@ package com.edtech.course.service;
 
 import com.edtech.course.dto.CategoryDTO;
 import com.edtech.course.dto.SubCategoryDTO;
+
 import com.edtech.course.dto.TopicDTO;
 import com.edtech.course.model.Category;
 import com.edtech.course.model.SubCategory;
+
 import com.edtech.course.model.Topic;
 import com.edtech.course.repository.CategoryRepository;
 import org.apache.kafka.common.errors.ResourceNotFoundException;
@@ -71,9 +73,9 @@ public class CategoryServiceImpl implements CategoryService {
         dto.setId(sub.getId());
         dto.setName(sub.getName());
         dto.setTopics(sub.getTopics().stream().map(t -> {
-            TopicDTO tdto = new TopicDTO();
-            tdto.setId(t.getId());
-            tdto.setName(t.getName());
+            TopicDTO tdto= new TopicDTO();
+//            tdto.setId(t.getId());
+//            tdto.setName(t.getName());
             return tdto;
         }).collect(Collectors.toList()));
         return dto;

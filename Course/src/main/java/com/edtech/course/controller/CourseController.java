@@ -1,10 +1,8 @@
 package com.edtech.course.controller;
 
-import com.edtech.course.model.Course;
-import com.edtech.course.model.CourseDTO;
+import com.edtech.course.dto.CourseDTO;
 import com.edtech.course.service.CourseService;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

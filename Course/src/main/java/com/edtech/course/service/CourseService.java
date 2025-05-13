@@ -1,14 +1,18 @@
 package com.edtech.course.service;
 
+import com.edtech.course.dto.ChapterDTO;
 import com.edtech.course.exception.CourseNotFoundException;
 import com.edtech.course.mapper.CourseMapper;
+import com.edtech.course.mapper.ChapterMapper;
 import com.edtech.course.model.Course;
-import com.edtech.course.model.CourseDTO;
+import com.edtech.course.dto.CourseDTO;
 import com.edtech.course.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseService {
@@ -18,14 +22,17 @@ public class CourseService {
 
     @Autowired
     private CourseMapper courseMapper;
+    @Autowired
+    private ChapterMapper chapterMapper;
 
     public CourseDTO addCourse(CourseDTO courseDTO) {
 
         Course course = courseMapper.toEntity(courseDTO);
         Course addedCourse = courseRepository.save(course);
+        System.out.println(addedCourse);
 
-
-        return courseMapper.toDto(addedCourse);
+        CourseDTO response=courseMapper.toDto(addedCourse);
+        return response;
     }
 
     public CourseDTO getCourse(UUID id) {
@@ -44,13 +51,15 @@ public class CourseService {
                     if (courseDTO.getCategoryId() != null) existingCourse.setCategoryId(courseDTO.getCategoryId());
                     if (courseDTO.getLanguage() != null) existingCourse.setLanguage(courseDTO.getLanguage());
                     if (courseDTO.getCourseBanner() != null) existingCourse.setCourseBanner(courseDTO.getCourseBanner());
-                    if (courseDTO.getTags() != null) existingCourse.setTags(courseDTO.getTags());
+//                    if (courseDTO.getTags() != null) existingCourse.setTags(courseDTO.getTags());
                     if (courseDTO.getDuration() != null) existingCourse.setDuration(courseDTO.getDuration());
                     if (courseDTO.getDifficultyLevel() != null) existingCourse.setDifficultyLevel(courseDTO.getDifficultyLevel());
                     if (courseDTO.getPrice() != null) existingCourse.setPrice(courseDTO.getPrice());
                     if (courseDTO.getCurrency() != null) existingCourse.setCurrency(courseDTO.getCurrency());
                     if (courseDTO.getTeacherId() != null) existingCourse.setTeacherId(courseDTO.getTeacherId());
+/*
                     if (courseDTO.getPrerequisites() != null) existingCourse.setPrerequisites(courseDTO.getPrerequisites());
+*/
                     if (courseDTO.getEnrollmentStatus() != null) existingCourse.setEnrollmentStatus(courseDTO.getEnrollmentStatus());
 
                     return courseRepository.save(existingCourse);
@@ -69,6 +78,16 @@ public class CourseService {
                         courseRepository::delete,
                         () -> { throw new CourseNotFoundException("Course not found with ID: " + id); }
                 );
+    }
+
+    public List<ChapterDTO> getTopicsByCourseId(UUID courseId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new CourseNotFoundException("Course not found with ID: " + courseId));
+
+        return course.getChapters()
+                .stream()
+                .map(chapterMapper::toDto)
+                .collect(Collectors.toList());
     }
 
 }

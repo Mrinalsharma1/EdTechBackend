@@ -2,28 +2,25 @@ package com.edtech.course.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import jakarta.validation.constraints.NotNull;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 import java.util.UUID;
 
 
 @Entity
-@Table(name = "courses")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name= "courses")
 public class Course {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name="course_id")
+    @GeneratedValue
     private UUID courseId;
+
     @Column
     private String title;
     @Column
@@ -34,8 +31,11 @@ public class Course {
     private String language;
     @Column
     private String courseBanner;
-    @Column
-    private List<String> tags;
+
+//    @Column
+//    @ElementCollection
+//    private List<String> tags;
+
     @Column
     private String duration;
     @Column
@@ -46,24 +46,31 @@ public class Course {
     private String currency;
     @Column
     private UUID teacherId;
-    @Column
-    @ElementCollection
-    private List<String> prerequisites;
 
+//    @Column
+//    @ElementCollection
+//    private List<String> prerequisites;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Chapter> chapters;
 
     private String enrollmentStatus;
 
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
 
     public UUID getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(UUID courseId) {
-        this.courseId = courseId;
-    }
-
     public String getTitle() {
         return title;
+    }
+
+    public void setCourseId(UUID courseId) {
+        this.courseId = courseId;
     }
 
     public void setTitle(String title) {
@@ -102,13 +109,13 @@ public class Course {
         this.courseBanner = courseBanner;
     }
 
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
+//    public List<String> getTags() {
+//        return tags;
+//    }
+//
+//    public void setTags(List<String> tags) {
+//        this.tags = tags;
+//    }
 
     public String getDuration() {
         return duration;
@@ -149,14 +156,14 @@ public class Course {
     public void setTeacherId(UUID teacherId) {
         this.teacherId = teacherId;
     }
-
-    public List<String> getPrerequisites() {
-        return prerequisites;
-    }
-
-    public void setPrerequisites(List<String> prerequisites) {
-        this.prerequisites = prerequisites;
-    }
+//
+//    public List<String> getPrerequisites() {
+//        return prerequisites;
+//    }
+//
+//    public void setPrerequisites(List<String> prerequisites) {
+//        this.prerequisites = prerequisites;
+//    }
 
     public String getEnrollmentStatus() {
         return enrollmentStatus;
@@ -165,5 +172,7 @@ public class Course {
     public void setEnrollmentStatus(String enrollmentStatus) {
         this.enrollmentStatus = enrollmentStatus;
     }
+
+
 }
 

@@ -1,6 +1,9 @@
 package com.edtech.course.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
 public class Topic {
@@ -11,14 +14,6 @@ public class Topic {
     @ManyToOne
     @JoinColumn(name = "subcategory_id")
     private SubCategory subCategory;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -36,4 +31,11 @@ public class Topic {
         this.subCategory = subCategory;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
