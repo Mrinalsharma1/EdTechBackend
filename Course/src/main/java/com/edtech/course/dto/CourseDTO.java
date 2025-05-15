@@ -1,9 +1,6 @@
-package com.edtech.course.model;
+package com.edtech.course.dto;
 
 import jakarta.validation.constraints.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 import java.util.UUID;
@@ -63,8 +60,20 @@ public class CourseDTO {
     @JsonProperty("course_banner")
     private String courseBanner;
 
+    @JsonProperty("chapters")
+    private List<ChapterDTO> chapters;
+
         // Getters and setters
-        public UUID getCourseId() {
+
+    public List<ChapterDTO> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<ChapterDTO> chapters) {
+        this.chapters = chapters;
+    }
+
+    public UUID getCourseId() {
             return courseId;
         }
 

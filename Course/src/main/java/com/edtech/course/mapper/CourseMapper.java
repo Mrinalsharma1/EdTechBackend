@@ -1,41 +1,45 @@
 package com.edtech.course.mapper;
 
 import com.edtech.course.model.Course;
-import com.edtech.course.model.CourseDTO;
+import com.edtech.course.dto.CourseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.ReportingPolicy;
 
-import java.util.UUID;
-
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = ChapterMapper.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CourseMapper {
 
-
-
-//    @Mapping(source = "categoryId", target = "category_Id", qualifiedByName = "uuidToString")
-//    @Mapping(source = "courseBanner", target = "course_Banner")
-//    @Mapping(source = "difficultyLevel", target = "difficulty_level")
-//    @Mapping(source = "teacherId", target = "teacher_id", qualifiedByName = "uuidToString")
-//    @Mapping(source = "enrollmentStatus", target = "enrollment_status")
-    CourseDTO toDto(Course course);
-
-//    @Mapping(source = "categoryId", target = "categoryId")
-//    @Mapping(source = "courseBanner", target = "courseBanner")
+    @Mapping(source = "courseId", target = "courseId")
+    @Mapping(source = "title", target = "title")
+    @Mapping(source = "description", target = "description")
+    @Mapping(source = "categoryId", target = "categoryId")
+    @Mapping(source = "language", target = "language")
+    @Mapping(source = "courseBanner", target = "courseBanner")
+    @Mapping(source = "tags", target = "tags")
+    @Mapping(source = "duration", target = "duration")
     @Mapping(source = "difficultyLevel", target = "difficultyLevel")
-//    @Mapping(source = "teacherId", target = "teacherId")
-//    @Mapping(source = "enrollmentStatus", target = "enrollmentStatus")
-    Course toEntity(CourseDTO courseDTO);
+    @Mapping(source = "price", target = "price")
+    @Mapping(source = "currency", target = "currency")
+    @Mapping(source = "teacherId", target = "teacherId")
+    @Mapping(source = "prerequisites", target = "prerequisites")
+    @Mapping(source = "chapters", target = "chapters")
+    @Mapping(source = "enrollmentStatus", target = "enrollmentStatus")
+    Course toEntity(CourseDTO courseDto);
 
-
-    @Named("uuidToString")
-    static UUID uuidFromString(String id) {
-        return id != null ? UUID.fromString(id) : null;
-    }
-
-    @Named("stringToUuid")
-    static String stringFromUuid(UUID id) {
-        return id != null ? id.toString() : null;
-    }
+    @Mapping(source = "courseId", target = "courseId")
+    @Mapping(source = "title", target = "title")
+    @Mapping(source = "description", target = "description")
+    @Mapping(source = "categoryId", target = "categoryId")
+    @Mapping(source = "language", target = "language")
+    @Mapping(source = "courseBanner", target = "courseBanner")
+    @Mapping(source = "tags", target = "tags")
+    @Mapping(source = "duration", target = "duration")
+    @Mapping(source = "difficultyLevel", target = "difficultyLevel")
+    @Mapping(source = "price", target = "price")
+    @Mapping(source = "currency", target = "currency")
+    @Mapping(source = "teacherId", target = "teacherId")
+    @Mapping(source = "prerequisites", target = "prerequisites")
+    @Mapping(source = "chapters", target = "chapters")
+    @Mapping(source = "enrollmentStatus", target = "enrollmentStatus")
+    CourseDTO toDto(Course course);
 }
-
