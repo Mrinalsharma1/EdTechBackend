@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "lessons")
 @Data
@@ -15,7 +17,7 @@ public class Lesson {
     @Id
     @Column(name="lesson_id")
     @GeneratedValue
-    private String lessonId;
+    private UUID lessonId;
 
     @Column
     private String lessonTitle;
@@ -33,12 +35,12 @@ public class Lesson {
     @JoinColumn(name = "chapterId")
     private Chapter chapter;
 
-    public String getLessonId() {
+    public UUID getLessonId() {
         return lessonId;
     }
 
     public void setLessonId(String lessonId) {
-        this.lessonId = lessonId;
+        this.lessonId = UUID.fromString(lessonId);
     }
 
     public String getLessonTitle() {

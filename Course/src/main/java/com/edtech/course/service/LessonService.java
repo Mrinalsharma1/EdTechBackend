@@ -8,6 +8,7 @@ import com.edtech.course.model.Lesson;
 import com.edtech.course.model.Chapter;
 import com.edtech.course.repository.LessonRepository;
 import com.edtech.course.repository.ChapterRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +25,24 @@ public class LessonService {
     @Autowired
     private LessonMapper lessonMapper;
 
-    public LessonDTO addLesson(UUID topicId, LessonDTO lessonDTO) {
-        Chapter topic = chapterRepository.findById(topicId)
-                .orElseThrow(() -> new ChapterNotFoundException("Topic not found with ID: " + topicId));
-
+    @Transactional
+    public LessonDTO addLesson(UUID chapterId, LessonDTO lessonDTO) {
+        Chapter chapter = chapterRepository.findById(chapterId)
+                .orElseThrow(() -> new ChapterNotFoundException("Chapter not found with ID: " + chapterId));
+        System.out.println(chapter.getChapterTitle());
+        System.out.println(lessonDTO.getLessonDescription());
         Lesson lesson = lessonMapper.toEntity(lessonDTO);
-        lesson.setChapter(topic);
+        System.out.println(lesson.getLessonTitle());
+        lesson.setChapter(chapter);
+        System.out.println(lesson.getChapter());
 
         Lesson savedLesson = lessonRepository.save(lesson);
-        return lessonMapper.toDto(savedLesson);
+        System.out.println(savedLesson.getLessonTitle());
+        LessonDTO result=lessonMapper.toDto(savedLesson);//not working
+        System.out.println(result.getLessonTitle());
+        return result;
+
+
     }
 
     public LessonDTO getLesson(UUID lessonId) {

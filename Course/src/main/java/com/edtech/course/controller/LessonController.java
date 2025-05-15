@@ -17,9 +17,9 @@ public class LessonController {
         this.lessonService = lessonService;
     }
 
-    @PostMapping("/addLesson")
-    public ResponseEntity<LessonDTO> addTopic(@Valid @PathVariable UUID topicId, @RequestBody LessonDTO lessonDTO) {
-        LessonDTO savedLesson = lessonService.addLesson(topicId,lessonDTO);
+    @PostMapping("/addLesson/{chapterId}")
+    public ResponseEntity<LessonDTO> addTopic(@Valid @PathVariable UUID chapterId, @RequestBody LessonDTO lessonDTO) {
+        LessonDTO savedLesson = lessonService.addLesson(chapterId,lessonDTO);
         return ResponseEntity.ok(savedLesson);
     }
 

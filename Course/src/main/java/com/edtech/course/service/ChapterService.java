@@ -11,6 +11,7 @@ import com.edtech.course.model.Course;
 import com.edtech.course.model.Chapter;
 import com.edtech.course.repository.CourseRepository;
 import com.edtech.course.repository.ChapterRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +33,19 @@ public class ChapterService {
     @Autowired
     private LessonMapper lessonMapper;
 
+
+    @Transactional
     public ChapterDTO addChapter(UUID courseId, ChapterDTO chapterDTO) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new CourseNotFoundException("Course not found with ID: " + courseId));
 
+        System.out.println("Found course: " + course.getCourseId());
+        System.out.println("Found course: " + course.getTitle());
+
         Chapter chapter = chapterMapper.toEntity(chapterDTO);
+
         chapter.setCourse(course);
+
 
         Chapter savedTopic = chapterRepository.save(chapter);
         return chapterMapper.toDto(savedTopic);

@@ -3,23 +3,27 @@ package com.edtech.course.mapper;
 import com.edtech.course.dto.LessonDTO;
 import com.edtech.course.model.Lesson;
 import org.mapstruct.Mapper;
-import org.mapstruct.Named;
+import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
-import java.util.UUID;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface LessonMapper {
+
+    @Mapping(source = "lessonId", target = "lessonId")
+    @Mapping(source = "lessonTitle", target = "lessonTitle")
+    @Mapping(source = "lessonDescription", target = "lessonDescription")
+    @Mapping(source = "videoUrl", target = "videoUrl")
+    @Mapping(source = "duration", target = "duration")
     LessonDTO toDto(Lesson lesson);
+
+    @Mapping(source = "lessonId", target = "lessonId")
+    @Mapping(source = "lessonTitle", target = "lessonTitle")
+    @Mapping(source = "lessonDescription", target = "lessonDescription")
+    @Mapping(source = "videoUrl", target = "videoUrl")
+    @Mapping(source = "duration", target = "duration")
+    @Mapping(target = "chapter", ignore = true)
     Lesson toEntity(LessonDTO lessonDto);
 
 
-    @Named("uuidToString")
-    static UUID uuidFromString(String id) {
-        return id != null ? UUID.fromString(id) : null;
-    }
-
-    @Named("stringToUuid")
-    static String stringFromUuid(UUID id) {
-        return id != null ? id.toString() : null;
-    }
 }

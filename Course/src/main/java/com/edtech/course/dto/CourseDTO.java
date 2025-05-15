@@ -23,9 +23,9 @@ public class CourseDTO {
     @NotBlank(message = "Language is required")
     private String language;
 
-//    @NotEmpty(message = "Tags cannot be empty")
-//    @Size(min = 1, max = 5, message = "You can have up to 5 tags")
-//    private List<String> tags;
+    @NotEmpty(message = "Tags cannot be empty")
+    @Size(min = 1, max = 5, message = "You can have up to 5 tags")
+    private List<String> tags;
 
     @NotBlank(message = "Duration is required")
     private String duration;
@@ -55,13 +55,25 @@ public class CourseDTO {
     @JsonProperty("teacher_id")
     private UUID teacherId;
 
-//    private List<String> prerequisites;
+    private List<String> prerequisites;
 
     @JsonProperty("course_banner")
     private String courseBanner;
 
+    @JsonProperty("chapters")
+    private List<ChapterDTO> chapters;
+
         // Getters and setters
-        public UUID getCourseId() {
+
+    public List<ChapterDTO> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<ChapterDTO> chapters) {
+        this.chapters = chapters;
+    }
+
+    public UUID getCourseId() {
             return courseId;
         }
 
@@ -101,13 +113,13 @@ public class CourseDTO {
             this.language = language;
         }
 
-//        public List<String> getTags() {
-//            return tags;
-//        }
-//
-//        public void setTags(List<String> tags) {
-//            this.tags = tags;
-//        }
+        public List<String> getTags() {
+            return tags;
+        }
+
+        public void setTags(List<String> tags) {
+            this.tags = tags;
+        }
 
         public String getDuration() {
             return duration;
@@ -149,13 +161,13 @@ public class CourseDTO {
             this.teacherId = teacherId;
         }
 
-//        public List<String> getPrerequisites() {
-//            return prerequisites;
-//        }
-//
-//        public void setPrerequisites(List<String> prerequisites) {
-//            this.prerequisites = prerequisites;
-//        }
+        public List<String> getPrerequisites() {
+            return prerequisites;
+        }
+
+        public void setPrerequisites(List<String> prerequisites) {
+            this.prerequisites = prerequisites;
+        }
 
         public String getEnrollmentStatus() {
             return enrollmentStatus;

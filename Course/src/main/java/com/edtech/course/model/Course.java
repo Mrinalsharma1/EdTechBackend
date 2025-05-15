@@ -32,9 +32,9 @@ public class Course {
     @Column
     private String courseBanner;
 
-//    @Column
-//    @ElementCollection
-//    private List<String> tags;
+    @Column
+    @ElementCollection
+    private List<String> tags;
 
     @Column
     private String duration;
@@ -47,9 +47,9 @@ public class Course {
     @Column
     private UUID teacherId;
 
-//    @Column
-//    @ElementCollection
-//    private List<String> prerequisites;
+    @Column
+    @ElementCollection
+    private List<String> prerequisites;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Chapter> chapters;
@@ -109,13 +109,13 @@ public class Course {
         this.courseBanner = courseBanner;
     }
 
-//    public List<String> getTags() {
-//        return tags;
-//    }
-//
-//    public void setTags(List<String> tags) {
-//        this.tags = tags;
-//    }
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
 
     public String getDuration() {
         return duration;
@@ -156,14 +156,14 @@ public class Course {
     public void setTeacherId(UUID teacherId) {
         this.teacherId = teacherId;
     }
-//
-//    public List<String> getPrerequisites() {
-//        return prerequisites;
-//    }
-//
-//    public void setPrerequisites(List<String> prerequisites) {
-//        this.prerequisites = prerequisites;
-//    }
+
+    public List<String> getPrerequisites() {
+        return prerequisites;
+    }
+
+    public void setPrerequisites(List<String> prerequisites) {
+        this.prerequisites = prerequisites;
+    }
 
     public String getEnrollmentStatus() {
         return enrollmentStatus;

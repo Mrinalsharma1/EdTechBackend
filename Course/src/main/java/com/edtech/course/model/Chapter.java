@@ -8,11 +8,9 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "chapters")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+
 public class Chapter {
 
     @Id
@@ -29,8 +27,8 @@ public class Chapter {
     @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lesson> lessons;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     private Course course;
 
     public void setCourse(Course course) {
@@ -58,5 +56,11 @@ public class Chapter {
         return chapterTitle;
     }
 
+    public Course getCourse() {
+        return course;
+    }
 
+    public String getChapterDescription() {
+        return chapterDescription;
+    }
 }
