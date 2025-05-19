@@ -13,7 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,13 +29,16 @@ public class UserService {
 
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
 
-    public Users register(Users user){
-        boolean userExist = userRepo.existsByUsername(user.getUsername());
-        if(userExist){
-            throw new UserAlreadyPresentException(user.getUsername());
+    public Users register(Users user) {
+        if (user != null) {
+            Optional<Users> userExist = userRepo.findByUsernameOrEmailOrPhone(user.getUsername(), user.getEmail(), user.getPhone());
+            if (userExist.isPresent()) {
+                throw new UserAlreadyPresentException();
+            }
         }
-        return userRepo.save(user);
-    }
+            return userRepo.save(user);
+        }
+
 
     public AuthResponse verify(Users user) {
         LOGGER.info("Authenticating user with Username: " + user.getUsername());
@@ -52,12 +55,13 @@ public class UserService {
                 Users authenticatedUser = userRepo.findByUsername(user.getUsername());
 
                 // Return the complete user data in AuthResponse
-
+                System.out.println(authenticatedUser.toString());
+                System.out.println("iddd" +authenticatedUser.getId());
                 return new AuthResponse(
                         token,
                         authenticatedUser.getId(),
                         authenticatedUser.getUsername(),
-                        authenticatedUser.getProfilename(),
+                        authenticatedUser.getEmail(),
                         authenticatedUser.getRoles().stream()
                                 .map(Object::toString)
                                 .collect(Collectors.joining(", ")));
@@ -80,6 +84,25 @@ public class UserService {
             throw e; // Rethrow or handle as needed
         }
         return null; // In case of any unexpected situation
+    }
+
+    public Map<String, Object> checkUsernameAvailability(String username) {
+        boolean exists= userRepo.existsByUsername(username);
+        Map<String, Object> response=new HashMap<>();
+        response.put("Available", !exists);
+        if(exists){
+            response.put("Suggestion", generateSuggestion(username));
+        }
+        return response;
+    }
+
+    private List<String> generateSuggestion(String username) {
+        List<String> suggestions=new ArrayList<>();
+        Random rand=new Random();
+        for(int i=0;i<3;i++){
+            suggestions.add(username + (rand.nextInt(900) + 100) );
+        }
+        return suggestions;
     }
 }
 

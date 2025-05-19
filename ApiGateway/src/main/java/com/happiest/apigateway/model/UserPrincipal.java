@@ -32,10 +32,10 @@ UserPrincipal implements UserDetails {
         return user.getUsername();
     }
 
-//    @Override
-//    public String getEmail() {
-//        return user.getEmail();
-//    }
+
+    public String getEmail() {
+        return user.getEmail();
+    }
 
     @Override
     public boolean isAccountNonExpired() {

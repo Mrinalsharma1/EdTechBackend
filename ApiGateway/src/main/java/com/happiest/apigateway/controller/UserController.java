@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin
@@ -58,7 +59,7 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody Users user) {
         try {
             AuthResponse authResponse = userService.verify(user);
-
+            System.out.println("response from controller" +authResponse.toString());
             if (authResponse != null) {
                 Map<String, Object> responseBody = new HashMap<>();
                 responseBody.put("message", "User logged in successfully");
@@ -122,10 +123,19 @@ public class UserController {
         }
     }
     @PostMapping("/logout")
-    public Integer findByUsername(Long userId){
+    public Integer findByUsername(UUID userId){
         System.out.println("Logout Initialized");
         return refreshTokenService.deleteByUserId(userId);
     }
+
+    @GetMapping("/checkUsername")
+    public ResponseEntity<Map<String, Object>> checkUsername(@RequestParam  String username){
+        Map<String, Object> response=userService.checkUsernameAvailability(username);
+        return ResponseEntity.ok(response);
+
+    }
+
+
 
 }
 

@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.CONFLICT) // HTTP 409
 public class UserAlreadyPresentException extends RuntimeException {
 
-    public UserAlreadyPresentException(String email) {
-        super("User already exists with email: " + email);
+    public UserAlreadyPresentException() {
+        super("User already exists");
     }
 }
 
