@@ -1,11 +1,10 @@
-package com.happiest.apigateway.repository;
+package com.edtech.teacher.repository;
 
-import com.happiest.apigateway.model.Users;
+
+import com.edtech.teacher.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -13,7 +12,7 @@ public interface UserRepository extends JpaRepository<Users, UUID> {
     Users findByUsername(String name);
     boolean existsByUsername(String username);
 
-    Optional<Users> findByUsernameOrEmailOrPhone(String username, String email, String phone);
+//    Optional<Users> findByUsernameOrEmailOrPhone(String username, String email, String phone);
 
 
 //    @Query

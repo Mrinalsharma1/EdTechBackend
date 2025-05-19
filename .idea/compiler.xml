@@ -8,8 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="DiscoveryServer" />
-        <module name="ApiGateway" />
         <module name="ConfigServer" />
+        <module name="ApiGateway" />
       </profile>
       <profile name="Annotation profile for Course" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -21,6 +21,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.2.Final/mapstruct-1.5.2.Final.jar" />
         </processorPath>
         <module name="Course" />
+        <module name="Teacher" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -33,6 +34,7 @@
       <module name="ConfigServer" options="-parameters" />
       <module name="Course" options="-parameters" />
       <module name="DiscoveryServer" options="-parameters" />
+      <module name="Teacher" options="-parameters" />
     </option>
   </component>
 </project>
